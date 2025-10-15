@@ -15,6 +15,95 @@ also might be interesting to share some of the combat mechanics i've found befor
    game_attacker.snipe_percentage = add_percentage(game_attacker.snipe_percentage,game_attacker.snipe_percentage_bonus);
    game_attacker.magicka_percentage = Math.round((game_attacker.magicka + 9) / (game_defender.magicka + 9) * 100 * 0.5);
 ```
+some dice and damage mechanics
+```
+checkattackroll = function()
+{
+   attack_chances(game_attacker,game_defender);
+   diceroll = randomBetween(1,100);
+   if(attack_direction >= 1 && attack_direction <= 4)
+   {
+      damage = game_attacker.min_damage;
+      criticalhit = randomBetween(-20,20);
+      rollneeded = 100 - game_attacker.quick_percentage;
+   }
+   else if(attack_direction >= 5 && attack_direction <= 8)
+   {
+      damage = randomBetween(game_attacker.min_damage,game_attacker.max_damage);
+      criticalhit = randomBetween(1,20);
+      rollneeded = 100 - game_attacker.normal_percentage;
+   }
+   else if(attack_direction >= 9 && attack_direction <= 12)
+   {
+      criticalhit = randomBetween(5,20);
+      damage = game_attacker.max_damage;
+      rollneeded = 100 - game_attacker.power_percentage;
+   }
+   else if(attack_direction == 20)
+   {
+      criticalhit = 21;
+      damage = Math.round(game_attacker.charisma * 4) - game_defender.charisma;
+      if(damage < 1)
+      {
+         damage = randomBetween(1,3);
+      }
+      rollneeded = 100 - game_attacker.taunt_percentage;
+   }
+   else if(attack_direction == 21)
+   {
+      criticalhit = randomBetween(-20,20);
+      damage = randomBetween(game_attacker.min_damage,game_attacker.max_damage);
+      rollneeded = 100 - game_attacker.bombard_percentage;
+   }
+   else if(attack_direction == 22)
+   {
+      criticalhit = 0;
+      damage = game_attacker.min_damage;
+      rollneeded = 100 - game_attacker.snipe_percentage;
+   }
+   else if(attack_direction == 23)
+   {
+      damage = Math.ceil(game_attacker.min_damage / 2);
+      rollneeded = 100 - game_attacker.bash_percentage;
+   }
+   else if(attack_direction == 30)
+   {
+      criticalhit = 20;
+      damage = Math.round(game_attacker.max_damage * 1.5);
+      rollneeded = 100 - Math.round(game_attacker.normal_percentage);
+   }
+   if(diceroll >= rollneeded)
+   {
+      deflect_critical = randomBetween(1,100);
+      deflect_needed = get_percentage(100 - game_defender.helmet * 1.5 + game_defender.greaves,100);
+      if(deflect_critical >= deflect_needed)
+      {
+         criticalhit = 0;
+      }
+      if(attack_direction == 30)
+      {
+         defender_hurt("grievous");
+      }
+      else if(attack_direction == 20)
+      {
+         defender_hurt("taunt");
+      }
+      else if(criticalhit == 20 && attack_direction != 20)
+      {
+         defender_hurt("critical");
+      }
+      else
+      {
+         damage_method = "normal";
+         defender_hurt("normal");
+      }
+   }
+   else
+   {
+      defender_blocked();
+   }
+};
+```
 this section covers some life-mana regen at end of round
 ```
 nextphase = function()
