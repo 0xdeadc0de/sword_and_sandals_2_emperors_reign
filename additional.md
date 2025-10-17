@@ -14,6 +14,11 @@ also might be interesting to share some of the combat mechanics i've found befor
    game_attacker.snipe_percentage_bonus = get_percentage(100 + game_attacker.shield * 1.5,100);
    game_attacker.snipe_percentage = add_percentage(game_attacker.snipe_percentage,game_attacker.snipe_percentage_bonus);
    game_attacker.magicka_percentage = Math.round((game_attacker.magicka + 9) / (game_defender.magicka + 9) * 100 * 0.5);
+
+--
+
+   whichcharacter.min_damage = Math.round(whichcharacter.strength * 2) + whichcharacter.weapon_min_damage;
+   whichcharacter.max_damage = Math.round(whichcharacter.strength * 2) + whichcharacter.weapon_max_damage;
 ```
 some dice and damage mechanics
 ```
