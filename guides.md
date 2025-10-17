@@ -45,6 +45,10 @@ parnew.characters[3].stamina.string  = '1'
 parnew.characters[3].magicka.string  = '50'
 ```
 and items : colossus, 2x ww, 3x ghost.
+
 strategy:
+
 1st round: cast colossus
-2nd+ if enemy is in range (if you see power,normal attacks and not charge) use ww, otherwise ghost
+
+2nd+ if enemy is in range (if you see power,normal attacks and not charge) 
+use ww, otherwise ghost
