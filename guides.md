@@ -17,7 +17,7 @@ i found that colossus gives 3x str and 2x attack for about 16 rounds.
 and ghost strike + whirlwind does massive damage and only uses mana equaling to magicka
 so the problem statement here is that whether should we spend 60 agility and get katana
 or go full strength and get maul for 440 damage. the statement is below:
-
+```
 a for attack, s for strength, w for weapon damage
 f(a,s)=min(0.99,((2*a+10)/(60+10)*0.5))*((s*3*2+w)*1.5) 
 maximize f with given constraints below: 
@@ -29,7 +29,7 @@ the gpt solves this with:
 s=64.3 a=94.7	fmax ≈ 1556.6
 2	
 s=64.3 a=34.7 fmax ≈ 1313.0
-
+```
 and it did work marvelously... the ww attack does indeed damage around 1.5k.
 here i gave defender 60 defence points since this is the stat of the final emperor
 you're going to face.
